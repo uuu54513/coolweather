@@ -67,21 +67,21 @@ public class CoolWeatherDB {
             ContentValues values = new ContentValues();
             values.put("city_name",city.getCityName());
             values.put("city_code",city.getCityCode());
-            values.put("id",city.getId());
             values.put("province_id",city.getProvince_id());
             db.insert("City",null,values);
         }
     }
 
-    public List<City> loadCity(){
+    public List<City> loadCity(int provinceId){
         List<City> cities = new ArrayList<City>();
-        Cursor cursor = db.query("City",null,null,null,null,null,null,null);
+        Cursor cursor = db.query("City",null,"provinced_id = ?",new String[]{String.valueOf(provinceId)},null,null,null,null);
         if (cursor.moveToFirst()){
             do {
                 City city = new City();
-                city.setId(cursor.getColumnIndex("id"));
+                city.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 city.setCityCode(cursor.getString(cursor.getColumnIndex("city_code")));
                 city.setCityName(cursor.getString(cursor.getColumnIndex("city_name")));
+                city.setProvince_id(provinceId);
                 cities.add(city);
             }while (cursor.moveToNext());
         }
@@ -97,23 +97,25 @@ public class CoolWeatherDB {
             value.put("county_name",county.getCountyName());
             value.put("county_code",county.getCountyCode());
             value.put("id",county.getCity_id());
-            value.put("city_id",county.getId());
             db.insert("County",null,value);
         }
     }
 
-    public List<County> loadCounty(){
+    public List<County> loadCounty(int cityId){
         List<County> list = new ArrayList<County>();
-        Cursor cursor = db.query("County",null,null,null,null,null,null,null);
+        Cursor cursor = db.query("County",null,"city_id = ?",new String[]{String.valueOf(cityId)},null,null,null,null);
         if (cursor.moveToFirst()){
             do {
                 County county = new County();
-                county.setId(cursor.getColumnIndex("id"));
-                county.setCity_id(cursor.getColumnIndex("city_id"));
+                county.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                county.setCity_id(cityId);
                 county.setCountyCode(cursor.getString(cursor.getColumnIndex("count_code")));
                 county.setCountyName(cursor.getString(cursor.getColumnIndex("count_name")));
                 list.add(county);
             }while (cursor.moveToNext());
+        }
+        if (cursor != null){
+            cursor.close();
         }
         return list;
     }
