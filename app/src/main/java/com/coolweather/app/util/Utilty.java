@@ -48,7 +48,7 @@ public class Utilty {
         return false;
     }
 
-    public static boolean handleCounty(CoolWeatherDB coolWeatherDB,String response,int cityId){
+    public static boolean handleCountyResonpse(CoolWeatherDB coolWeatherDB,String response,int cityId){
         if (!TextUtils.isEmpty(response)){
             String[] Counties = response.split(",");
             if (Counties != null && Counties.length >0){
