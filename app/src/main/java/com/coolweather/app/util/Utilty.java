@@ -51,7 +51,7 @@ public class Utilty {
     public static boolean handleCountyResonpse(CoolWeatherDB coolWeatherDB,String response,int cityId){
         if (!TextUtils.isEmpty(response)){
             String[] Counties = response.split(",");
-            if (Counties != null && Counties.length >0){
+            if (Counties != null && Counties.length > 0){
                 for (String s : Counties){
                     String[] array = s.split("\\|");
                     County county = new County();

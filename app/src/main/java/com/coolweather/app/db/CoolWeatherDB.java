@@ -50,9 +50,9 @@ public class CoolWeatherDB {
         if (cursor.moveToFirst()){
             do{
                 Province province = new Province();
-                province.setId(cursor.getColumnIndex("id"));
-                province.setProvinceCode(cursor.getString(cursor.getColumnIndex("province_name")));
-                province.setProvinceName(cursor.getString(cursor.getColumnIndex("province_code")));
+                province.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                province.setProvinceCode(cursor.getString(cursor.getColumnIndex("province_code")));
+                province.setProvinceName(cursor.getString(cursor.getColumnIndex("province_name")));
                 list.add(province);
             }while (cursor.moveToNext());
         }
@@ -74,7 +74,7 @@ public class CoolWeatherDB {
 
     public List<City> loadCity(int provinceId){
         List<City> cities = new ArrayList<City>();
-        Cursor cursor = db.query("City",null,"provinced_id = ?",new String[]{String.valueOf(provinceId)},null,null,null,null);
+        Cursor cursor = db.query("City",null,"province_id = ?",new String[]{String.valueOf(provinceId)},null,null,null);
         if (cursor.moveToFirst()){
             do {
                 City city = new City();
@@ -96,21 +96,21 @@ public class CoolWeatherDB {
             ContentValues value = new ContentValues();
             value.put("county_name",county.getCountyName());
             value.put("county_code",county.getCountyCode());
-            value.put("id",county.getCity_id());
+            value.put("city_id",county.getCity_id());
             db.insert("County",null,value);
         }
     }
 
     public List<County> loadCounty(int cityId){
         List<County> list = new ArrayList<County>();
-        Cursor cursor = db.query("County",null,"city_id = ?",new String[]{String.valueOf(cityId)},null,null,null,null);
+        Cursor cursor = db.query("County",null,"city_id = ?",new String[]{String.valueOf(cityId)},null,null,null);
         if (cursor.moveToFirst()){
             do {
                 County county = new County();
                 county.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 county.setCity_id(cityId);
-                county.setCountyCode(cursor.getString(cursor.getColumnIndex("count_code")));
-                county.setCountyName(cursor.getString(cursor.getColumnIndex("count_name")));
+                county.setCountyCode(cursor.getString(cursor.getColumnIndex("county_code")));
+                county.setCountyName(cursor.getString(cursor.getColumnIndex("county_name")));
                 list.add(county);
             }while (cursor.moveToNext());
         }

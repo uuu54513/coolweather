@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -79,7 +80,7 @@ public class ChooseAreaActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
             textView.setText("中国");
-            currentLevel = LEVEL_CITY;
+            currentLevel = LEVEL_PROVINCE;
         }else {
             queryFromServer(null,"province");
         }
@@ -87,6 +88,7 @@ public class ChooseAreaActivity extends AppCompatActivity {
 
     private void queryCities() {
         cityList = coolWeatherDB.loadCity(selectedProvince.getId());
+        Log.e("Province", String.valueOf(selectedProvince.getId()));
         if (cityList.size() > 0){
             datalist.clear();
             for (City city : cityList){
@@ -97,7 +99,7 @@ public class ChooseAreaActivity extends AppCompatActivity {
             textView.setText(selectedProvince.getProvinceName());
             currentLevel = LEVEL_CITY;
         }else {
-            queryFromServer(selectedCity.getCityCode(),"city");
+            queryFromServer(selectedProvince.getProvinceCode(),"city");
         }
     }
 
