@@ -7,8 +7,6 @@ import android.content.Intent;
 import com.coolweather.app.service.AutoUpdateService;
 
 public class AutoUpdateReceiver extends BroadcastReceiver {
-    public AutoUpdateReceiver() {
-    }
 
     @Override
     public void onReceive(Context context, Intent intent) {

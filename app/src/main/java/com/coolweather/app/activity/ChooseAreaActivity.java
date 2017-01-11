@@ -54,7 +54,7 @@ public class ChooseAreaActivity extends AppCompatActivity {
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity",false);
         SharedPreferences pres = PreferenceManager.getDefaultSharedPreferences(this);
-        if (pres.getBoolean("city_selected",false && isFromWeatherActivity)){
+        if (pres.getBoolean("city_selected",false) && !isFromWeatherActivity){
             Intent intent = new Intent(this,WeatherActivity.class);
             startActivity(intent);
             finish();

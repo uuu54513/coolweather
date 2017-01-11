@@ -13,7 +13,7 @@
         android:weightSum="1">
 
         <Button
-            android:text="Button"
+            android:text="返回"
             android:layout_width="99dp"
             android:layout_height="wrap_content"
             android:id="@+id/switch_city"/>
@@ -31,7 +31,7 @@
             android:layout_weight="0.97"/>
 
         <Button
-            android:text="Button"
+            android:text="刷新"
             android:layout_width="99dp"
             android:layout_height="wrap_content"
             android:id="@+id/refresh"
